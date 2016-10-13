@@ -16,11 +16,9 @@ $stmt->execute();
 $stmt->store_result();
 $stmt->bind_result( $login_usuario, $password);
 
-//$acceso = "false";
 session_start();
 $_SESSION['acceso'] = "false";
 if ($stmt->num_rows == 1) {
-    //$acceso = "true";
     $_SESSION['login_usuario'] = $_REQUEST['login_usuario'];
     $_SESSION['acceso'] = "true";
 }
