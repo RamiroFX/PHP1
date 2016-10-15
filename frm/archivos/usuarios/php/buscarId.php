@@ -16,8 +16,5 @@ if ($result) {
 } else {
     $objeto->mensaje = "Registro no encontrado";
 }
-
-$json = json_encode($objeto);
-mysqli_close($connection);
 echo($json);
 ?>
