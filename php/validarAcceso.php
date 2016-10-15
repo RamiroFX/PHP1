@@ -9,7 +9,6 @@ $login_usuario = $_REQUEST['login_usuario'];
 $token = 'E45Y-P34CY';
 $pass_usuario = md5($_REQUEST['password_usuario']);
 $password = hash('sha256', $pass_usuario . $token);
-
 $stmt = $mysqli->prepare("SELECT usuario, password FROM USUARIO WHERE USUARIO = ? AND PASSWORD = ? ");
 $stmt->bind_param("ss", $login_usuario, $password);
 $stmt->execute();

@@ -1,19 +1,22 @@
 <?php
 
-$mysqli = new mysqli("localhost", "root", "", "php1");
-if (mysqli_connect_errno()) {
-    die("Error al conectar: " . mysqli_connect_error());
-}
+require '../../../../php/conexion.php';
 
-$pass_usuario = $_REQUEST['pass_usuario'];
+$id_usuario = $_REQUEST['cod_usuario'];
+$token = 'E45Y-P34CY';
+$pass_usuario = md5($_REQUEST['password_usuario']);
+$password = hash('sha256', $pass_usuario . $token);
 $nombre_usuario = $_REQUEST['nombre_usuario'];
 $email_usuario = $_REQUEST['email_usuario'];
-$UPDATE_USUARIO = "UPDATE USUARIO(password, nombre, email)values('" . $pass_usuario . "','" . $nombre_usuario . "','" . $email_usuario . "')";
-$ret = $mysqli->query($UPDATE_USUARIO);
-$res = "Registro no modificado.";
-if ($ret == 1) {
+$stmt = $connection->prepare("UPDATE USUARIO SET password = ?, nombre = ?, email = ? WHERE ID_USUARIO = ?;");
+$stmt->bind_param("sssi", $password, $nombre_usuario, $email_usuario, $id_usuario);
+$stmt->execute();
+if ($stmt) {
     $res = "Usuario modificado satisfactoriamente";
+} else {
+    $res = "Registro no modificado.";
+    mysqli_error($connection);
 }
-$mysqli->close();
+$connection->close();
 echo($res);
 ?>

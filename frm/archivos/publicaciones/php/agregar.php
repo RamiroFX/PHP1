@@ -1,28 +1,36 @@
 <?php
 
-$mysqli = new mysqli("localhost", "root", "", "php1");
-if (mysqli_connect_errno()) {
-    die("Error al conectar: " . mysqli_error());
-}
+require '../../../../php/conexion.php';
+
 $titulo = $_POST['titulo'];
 $contenido = $_POST['contenido'];
 $fecha = date("Y/m/d");
-//$imagenEscapes = $mysqli->real_escape_string(file_get_contents($_FILES["imagen"]["tmp_name"]));
-$image = $mysqli->real_escape_string(file_get_contents($_FILES['imagen']['tmp_name']));
+//$image = $connection->real_escape_string(file_get_contents($_FILES['imagen']['tmp_name']));
 //Los posibles valores que puedes obtener de la iamgen son:
 //    name, nombre del archivo
 //    type, tipo
 //    tmp_name, nombre del archivo de la imagen temporal
 //    size, tamaño
-// prepare and bind
-$stmt = $mysqli->prepare("INSERT INTO PUBLICACIONES(TITULO,CONTENIDO,FECHA,IMAGEN)VALUES(?, ?, ?, ?)");
-$stmt->bind_param("ssss", $titulo, $contenido, $fecha, $image);
-$stmt->execute();
-$res = "Contenido no enviado";
-if ($stmt) {
-    $res = "Publicacion agregada satisfactoriamente";
+$ruta = "imagenes/";
+$uploadfile_temporal = $_FILES['imagen']['tmp_name'];
+$uploadfile_nombre = $ruta . $_FILES['imagen']['name'];
+printf("_*uploadfile_temporal: ".$uploadfile_temporal);
+printf("_*uploadfile_nombre: ".$uploadfile_nombre);
+if (is_uploaded_file($uploadfile_temporal)) {
+    move_uploaded_file($uploadfile_temporal, $uploadfile_nombre);
+    $stmt = $connection->prepare("INSERT INTO PUBLICACIONES(TITULO,CONTENIDO,FECHA,IMAGEN)VALUES(?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $titulo, $contenido, $fecha, $uploadfile_nombre);
+    $stmt->execute();
+    $res = "Contenido no enviado";
+    if ($stmt) {
+        $res = "Publicacion agregada satisfactoriamente";
+    }
+    $stmt->close();
+    $connection->close();
+} else {
+    echo "error";
 }
-$stmt->close();
-$mysqli->close();
+
+
 echo($res);
 ?>

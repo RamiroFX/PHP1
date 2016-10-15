@@ -8,11 +8,11 @@ function agregarUsuario() {
         cache: false,
         contentType: false,
         processData: false,
-        success: function(res) {
+        success: function (res) {
             $("#mensajes").html(res);
             limpiarCampos();
         },
-        error: function(e) {
+        error: function (e) {
             $("#mensajes").html("No se puede agregar los datos, Error: " + e.status);
         }
     });
@@ -25,28 +25,28 @@ function buscarNombreUsuario() {
         url: 'php/buscarNombre.php',
         data: datosFormulario,
         dataType: 'json',
-        beforeSend: function(objeto) {
+        beforeSend: function (objeto) {
             $("#mensajes").html("Enviando datos al servidor...");
             $("#contenidoBusqueda").css("display", "none");
         },
-        success: function(json) {
+        success: function (json) {
             $("#mensajes").html(json.mensaje);
             $("#contenidoBusqueda").html(json.contenido);
             $("#contenidoBusqueda").fadeIn("slow");
-            $("#tbody tr").on("click", function() {
+            $("tbody tr").on("click", function () {
                 var id = $(this).find("td:first").html();
                 $("#panelBuscar").html("");
-                $("#cod_usuario").html(id);
+                $("#cod_usuario").val(id);
                 $("#nombre_usuario").focus();
                 buscarIdUsuario();
                 $("#buscar").fadeOut("slow");
                 $("#panelPrograma").fadeIn("slow");
             });
         },
-        error: function(e) {
+        error: function (e) {
             $("#mensajes").html("No se pudo buscar registros. Error: " + e.status);
         },
-        complete: function(objeto, exito, error) {
+        complete: function (objeto, exito, error) {
             if (exito === "success") {
 
             }
@@ -62,21 +62,20 @@ function buscarIdUsuario() {
         url: 'php/buscarId.php',
         data: datosFormulario,
         dataType: 'json',
-        beforeSend: function(objeto) {
+        beforeSend: function (objeto) {
             $("#mensajes").html("Enviando datos al servidor..");
         },
-        success: function(json) {
+        success: function (json) {
             $("#mensajes").html(json.mensaje);
             $("#cod_usuario").val(json.id_usuario);
             $("#nombre_usuario").val(json.nombre_usuario);
             $("#alias_usuario").val(json.alias_usuario);
-            $("#password_usuario").val(json.password_usuario);
-            $("#rep_pass").val(json.repetir_password);
+            $("#email_usuario").val(json.email_usuario);
         },
-        error: function(e) {
+        error: function (e) {
             $("#mensajes").html("No se pudo recuperar los datos en buscarIdUsuario:" + e.status);
         },
-        complete: function(objeto, exito, error) {
+        complete: function (objeto, exito, error) {
             if (exito === "success") {
 
             }
@@ -96,18 +95,18 @@ function eliminarUsuario() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function(objeto) {
+        beforeSend: function (objeto) {
             $("#mensajes").html("Enviando datos al servidor..");
 
         },
-        success: function(res) {
+        success: function (res) {
             $('#mensajes').html(res);
             limpiarCampos();
         },
-        error: function(e) {
+        error: function (e) {
             $("#mensajes").html("No se pudo eliminar el registro:" + e.status);
         },
-        complete: function(objeto, exito, error) {
+        complete: function (objeto, exito, error) {
             $('#cod_usuario').focus();
             $('#cod_usuario').select();
             if (exito === "success") {
@@ -129,18 +128,18 @@ function modificarUsuario() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function(objeto) {
+        beforeSend: function (objeto) {
             $("#mensajes").html("Enviando datos al servidor..");
 
         },
-        success: function(res) {
+        success: function (res) {
             $('#mensajes').html(res);
             limpiarCampos();
         },
-        error: function(e) {
+        error: function (e) {
             $("#mensajes").html("No se pudo eliminar el registro:" + e.status);
         },
-        complete: function(objeto, exito, error) {
+        complete: function (objeto, exito, error) {
             $('#cod_usuario').focus();
             $('#cod_usuario').select();
             if (exito === "success") {

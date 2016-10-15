@@ -1,15 +1,17 @@
 <?php
- require '../../Conexion.php';
- $id=$_POST['cod_usuario'];
- 
- $sql = "DELETE FROM usuarios WHERE codigo=".$id;
- $result = pg_query($conn, $sql);
 
-  if (!$result) {
-      $res = "Error de coneccion!!";
-  }  else {
-     $res="Usuario borrado satisfactoriamente!!";   
-  }
-  pg_close($conn);
-  echo($res);
+require '../../../../php/conexion.php';
+$id = $_POST['cod_usuario'];
+
+$stmt = $connection->prepare("DELETE FROM usuario WHERE id_usuario = ?;");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+if ($stmt) {
+    $res = "Usuario eliminado satisfactoriamente";
+} else {
+    $res = "Registro no eliminado.";
+    mysqli_error($connection);
+}
+mysqli_close($connection);
+echo($res);
 ?>

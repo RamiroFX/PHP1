@@ -55,10 +55,15 @@
                     </div>
                     <div class="row">
                         <div class="col-md-1 derecha">
-                            <span>Imagen</span>
+                            <span>Seleccionar imagen</span>
                         </div>
                         <div class="col-md-1">
                             <input id="imagen" name ="imagen" type="file" class="btn btn-primary btn-sm"></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 izquierda">
+                            <img id="mosaico" src="#" alt="your image"style="width:304px;height:228px;" />
                         </div>
                     </div>
                     <div class="panel-footer centrado">
@@ -121,6 +126,10 @@
                 $("#buscar").fadeIn("slow");
                 $("#panelPublicaciones").fadeOut("slow");
             });
+    
+    $("#imagen").change(function(){
+        readURL(this);
+    });
             $("#botonAgregar").on('click', function() {
                 agregarPublicacion();
             });

@@ -83,21 +83,25 @@
         </div>
         <div id="mensajes" class="well well-sm centrado">Mensajes del sistema.</div>
         <script src="../../js/jquery.min.js" type="text/javascript"></script>
+        <script src = "js/funciones.js" type = "text/javascript" ></script>
         <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
         <script src="../../js/funciones.js" type="text/javascript"></script>
-        <script src="js/funciones.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../../css/jquery-ui.css">
+        <script src="../../js/jquery-ui.js"></script>
         <script>
-            $("#botonPrevisualizarDatos").on('click', function() {
+            $("#botonPrevisualizarDatos").on('click', function () {
                 buscarPublicacionFecha();
             });
-            $("#botonExportarExcel").on('click', function() {
+            $("#botonExportarExcel").on('click', function () {
                 di = id_reporte;
                 hi = "";
                 df = "";
                 hf = "";
             });
-            $("#hasta_fecha").on('click', function() {
-                datepicker();
+            
+            $(function () {
+                $("#desde_fecha").datepicker();
+                $("#hasta_fecha").datepicker();
             });
         </script>
     </body>

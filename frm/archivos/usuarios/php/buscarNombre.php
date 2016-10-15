@@ -1,24 +1,22 @@
 <?php
 
-###########buscarNombre.php##############
-#debe recibir el nombre de lo registros a mostrar
-#conectamos con mysql
-$mysqli = new mysqli("localhost", "root", "", "php1");
-if (mysqli_connect_errno()) {
-    die("Error al conectar: " . mysqli_connect_error());
-}
-$offset = ((int)($_POST['bpagina'])-1)*10;
-$query = "SELECT * FROM usuario WHERE nombre LIKE '%".$_POST['bnombre_usuario']."%' LIMIT 10 OFFSET ".$offset;
-$result = $mysqli->query($query);
-$tabla = "";
-while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-    $tabla = $tabla . "<tr>"
-            . "<td>" . $row["id"] . "</td>"
-            . "<td>" . $row["nombre"] . "</td>"
-            . "</tr>";
-}
+require '../../../../php/conexion.php';
+$offset = ((int) ($_POST['bpagina']) - 1) * 10;
+$query = "SELECT * FROM usuario WHERE nombre LIKE '%" . $_POST['bnombre_usuario'] . "%' LIMIT 10 OFFSET " . $offset;
+$result = mysqli_query($connection, $query);
 $pregunta = new stdClass();
-$pregunta->mensaje = "Datos encontrados";
+$tabla = "";
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $tabla = $tabla . "<tr>"
+                . "<td>" . $row["id_usuario"] . "</td>"
+                . "<td>" . $row["nombre"] . "</td>"
+                . "</tr>";
+    }
+    $pregunta->mensaje = "Datos encontrados";
+} else {
+    $pregunta->mensaje = "Datos no encontrados";
+}
 $pregunta->contenido = $tabla;
 $json = json_encode($pregunta);
 echo($json);
