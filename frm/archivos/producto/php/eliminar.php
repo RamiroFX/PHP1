@@ -1,16 +1,16 @@
 <?php
 
 require '../../../../php/conexion.php';
-$id = $_POST['id'];
+$id = $_POST['id_producto'];
 
-$sql = "DELETE FROM publicaciones WHERE id=" . $id;
+$sql = "DELETE FROM productos WHERE id_producto=" . $id;
 $result = mysqli_query($connection, $sql);
 
 if (!$result) {
     $res = "Error de coneccion!!";
 } else {
-    $res = "Publicacion borrado satisfactoriamente!!";
+    $res = "Producto borrado satisfactoriamente!!";
 }
-mysqli_close($conn);
+mysqli_close($connection);
 echo($res);
 ?>

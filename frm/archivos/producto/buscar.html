@@ -1,15 +1,15 @@
 <div id="panelBuscar" class="panel panel-primary">
-    <div class="panel-heading centrado">Buscar Publicaciones </div>
+    <div class="panel-heading centrado">Buscar Productos </div>
     <div class="panel-body">
         <form id="formBuscar">
             <input type="hidden" id="bpagina" name="bpagina" value="1"/>
             <div class="row">
                 <div class="col-md-1">
-                    <span>Titulo</span>
+                    <span>Nombre</span>
                 </div>
                 <div class="col-md-9">
-                    <input id="btitulo" name="btitulo" type="text"
-                           class="form-control input-sm" placeholder="Titulo"/>
+                    <input id="bnombre" name="bnombre" type="text"
+                           class="form-control input-sm" placeholder="Nombre"/>
                 </div> 
                 <div class="col-md-2">
                     <button id="botonBuscar" type="button"
@@ -25,9 +25,9 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Titulo</th>
-                        <th>Contenido</th>
-                        <th>fecha</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Precio</th>
                     </tr>
                 </thead>
                 <tbody id="contenidoBusqueda">
@@ -53,11 +53,11 @@
     </div>
 </div>
 <script>
-    buscarTituloPublicacion();
-    $("#bnombre_usuario").focus();
+    buscarNombreProducto()();
+    $("#bnombre").focus();
 
-    $("#btitulo").keyup(function() {
-        buscarTituloPublicacion();
+    $("#bnombre").keyup(function() {
+        buscarNombreProducto();
 
     });
 
@@ -66,8 +66,8 @@
 
         $("#contenidoBusqueda").html("");
         $("#bpagina").val("1");
-        buscarTituloPublicacion();
-        $("#bnombre_usuario").focus();
+        buscarNombreProducto();
+        $("#bnombre").focus();
     });
     $("#anterior").on("click", function() {
         $("#contenidoBusqueda").html("");
@@ -75,18 +75,18 @@
         if (pag > 1) {
             $("#bpagina").val(pag - 1);
         }
-        buscarTituloPublicacion();
+        buscarNombreProducto();
 
     });
     $("#siguiente").on("click", function() {
         $("#contenidoBusqueda").html("");
         var pag = parseInt($("#bpagina").val());
         $("#bpagina").val(pag + 1);
-        buscarTituloPublicacion();
+        buscarNombreProducto();
     });
     $("#botonSalirBuscar").on("click", function() {
         $("#buscar").fadeOut("slow");
-        $("#panelPublicaciones").fadeIn("slow");
+        $("#panelProducto").fadeIn("slow");
     });
 
 

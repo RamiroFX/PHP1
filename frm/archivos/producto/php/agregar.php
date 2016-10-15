@@ -2,9 +2,9 @@
 
 require '../../../../php/conexion.php';
 
-$titulo = $_POST['titulo'];
-$contenido = $_POST['contenido'];
-$fecha = date("Y/m/d");
+$nombre = $_POST['nombre'];
+$descripcion = $_POST['descripcion'];
+$precio = $_POST['precio'];
 //$image = $connection->real_escape_string(file_get_contents($_FILES['imagen']['tmp_name']));
 //Los posibles valores que puedes obtener de la iamgen son:
 //    name, nombre del archivo
@@ -15,15 +15,15 @@ $ruta = "../imagenes/";
 $nombreImagen= $_FILES['imagen']['name'];
 $uploadfile_temporal = $_FILES['imagen']['tmp_name'];
 $uploadfile_nombre = $ruta . $nombreImagen;
-
+$res = "Contenido no enviado";
 if (is_uploaded_file($uploadfile_temporal)) {
     move_uploaded_file($uploadfile_temporal, $uploadfile_nombre);
-    $stmt = $connection->prepare("INSERT INTO PUBLICACIONES(TITULO,CONTENIDO,FECHA,IMAGEN)VALUES(?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $titulo, $contenido, $fecha, $nombreImagen);
+    $stmt = $connection->prepare("INSERT INTO productos(NOMBRE,DESCRIPCION,PRECIO,IMAGEN)VALUES(?, ?, ?, ?)");
+    $stmt->bind_param("ssis", $nombre, $descripcion, $precio, $nombreImagen);
     $stmt->execute();
     $res = "Contenido no enviado";
     if ($stmt) {
-        $res = "Publicacion agregada satisfactoriamente";
+        $res = "Producto agregado satisfactoriamente";
     }
     $stmt->close();
     $connection->close();

@@ -15,12 +15,12 @@
         <section>
             <?php
             require 'php/conexion.php';
-            $result = $conexion->query("SELECT * FROM PRODUCTOS");
-            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            $result = mysqli_query($connection, "SELECT * FROM PRODUCTOS");
+            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 ?>
                 <div class="producto">
                     <center>
-                        <img src="./imagenes/<?php echo $row['imagen']; ?>"><br>
+                        <img src="./frm/archivos/producto/imagenes/<?php echo $row['imagen']; ?>"><br>
                         <span><?php echo $row['nombre']; ?></span><br>
                         <a href="./productos.php?id=<?php echo $row['id']; ?>">
                             <button class="btn btn-primary btn-sm">Detalle</button></a>

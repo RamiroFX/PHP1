@@ -8,25 +8,25 @@
         <link href="../../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../../../css/estilos.css" rel="stylesheet" type="text/css"/>
         <link rel="icon" type="image/png" href="../../../img/logo.png"/>
-        <title>Carga de publicaciones</title>
+        <title>Carga de productos</title>
     </head>
     <body>
         <div id="confirmar"></div>
         <div id="buscar"></div>
-        <div id="panelPublicaciones" class="panel panel-primary">
+        <div id="panelProductos" class="panel panel-primary">
             <div class="panel-body">
-                <form id="formPublicacion" enctype="multipart/form-data" method="POST">
+                <form id="formProductos" enctype="multipart/form-data" method="POST">
                     <div class="row">
                         <div class="col-md-1 derecha">
                             <span>Id</span>
                         </div>
                         <div class="col-md-1 derecha">
-                            <input id="cod_publicacion" name="cod_publicacion"
+                            <input id="id_producto" name="id_producto"
                                    type="text" class="form-control input-sm"
                                    placeholder="id">
                         </div>
                         <div class="col-md-1">
-                            <button id="botonBuscarIdPublicacion"
+                            <button id="botonBuscarIdProducto"
                                     type="button"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -35,22 +35,32 @@
                     </div>
                     <div class="row">
                         <div class="col-md-1 derecha">
-                            <span>Tìtulo</span>
+                            <span>Nombre</span>
                         </div>
                         <div class="col-md-1">
-                            <input id="titulo" name="titulo"
+                            <input id="nombre" name="nombre"
                                    type="text" class="form-control input-sm"
-                                   placeholder="Tìtulo">
+                                   placeholder="nombre">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-1 derecha">
-                            <span>Contenido</span>
+                            <span>Descripcion</span>
                         </div>
                         <div class="col-md-5">
-                            <textarea id="contenido" name="contenido"
+                            <textarea id="descripcion" name="descripcion"
                                       type="text" class="form-control input-sm"
-                                      placeholder="Contenido" cols="10" rows="5"></textarea>
+                                      placeholder="descripcion" cols="10" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 derecha">
+                            <span>Precio</span>
+                        </div>
+                        <div class="col-md-1">
+                            <input id="precio" name="precio"
+                                   type="text" class="form-control input-sm"
+                                   placeholder="precio">
                         </div>
                     </div>
                     <div class="row">
@@ -121,23 +131,23 @@
         <script src="js/funciones.js" type="text/javascript"></script>
         <script>
             $("#buscar").css('display', 'none');
-            $("#botonBuscarIdPublicacion").on('click', function() {
+            $("#botonBuscarIdProducto").on('click', function() {
                 $("#buscar").load("buscar.html");
                 $("#buscar").fadeIn("slow");
-                $("#panelPublicaciones").fadeOut("slow");
+                $("#panelProductos").fadeOut("slow");
             });
 
             $("#imagen").change(function() {
                 readURL(this);
             });
             $("#botonAgregar").on('click', function() {
-                agregarPublicacion();
+                agregarProducto();
             });
             $("#botonModificar").on('click', function() {
-                modificarPublicacion();
+                modificarProducto();
             });
             $("#botonEliminar").on('click', function() {
-                eliminarPublicacion();
+                eliminarProducto();
             });
             $("#botonSalir").on('click', function() {
                 location.href = "../../../menu.php";

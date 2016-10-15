@@ -1,5 +1,5 @@
-function agregarPublicacion() {
-    var formData = new FormData(document.getElementById("formPublicacion"));
+function agregarProducto() {
+    var formData = new FormData(document.getElementById("formProductos"));
     $.ajax({
         url: "php/agregar.php",
         type: "post",
@@ -17,7 +17,7 @@ function agregarPublicacion() {
     });
 }
 
-function buscarTituloPublicacion() {
+function buscarNombreProducto() {
     var datosFormulario = $("#formBuscar").serialize();
     $.ajax({
         url: 'php/buscarNombre.php',
@@ -35,8 +35,8 @@ function buscarTituloPublicacion() {
             $("tbody tr").on("click", function() {
                 var id = $(this).find("td:first").html();
                 $("#panelBuscar").html("");
-                $("#cod_publicacion").val(id);
-                buscarIdPublicacion();
+                $("#id_producto").val(id);
+                buscarIdProducto();
                 $("#buscar").fadeOut("slow");
                 $("#panelPublicaciones").fadeIn("slow");
             });
@@ -54,10 +54,10 @@ function buscarTituloPublicacion() {
 
 }
 
-function buscarIdPublicacion() {
-    $('#cod_publicacion').prop('disabled', false);
+function buscarIdProducto() {
+    $('#id_producto').prop('disabled', false);
     var datosFormulario = $('#formPublicacion').serialize();
-    $('#cod_publicacion').prop('disabled', true);
+    $('#id_producto').prop('disabled', true);
 
     $.ajax({
         type: 'POST',
@@ -69,8 +69,9 @@ function buscarIdPublicacion() {
         },
         success: function(json) {
             $("#mensajes").html(json.mensaje);
-            $("#titulo").val(json.titulo);
-            $("#contenido").val(json.contenido);
+            $("#nombre").val(json.nombre);
+            $("#descripcion").val(json.descripcion);
+            $("#precio").val(json.precio);
             if (json.imagen !== null & json.imagen !== "") {
                 $('#mosaico').attr('src', "imagenes/" + json.imagen);
             }
@@ -86,9 +87,9 @@ function buscarIdPublicacion() {
     });
 }
 
-function eliminarPublicacion() {
+function eliminarProducto() {
     $('#id').prop('disabled', false);//por no poder tomar el id de un campo deshabilitado
-    var formData = new FormData(document.getElementById("formPublicacion"));
+    var formData = new FormData(document.getElementById("formProducto"));
     $('#id').prop('disabled', true);
     $.ajax({
         type: 'POST',
@@ -109,8 +110,8 @@ function eliminarPublicacion() {
             $("#mensajes").html("No se pudo eliminar el registro:" + e.status);
         },
         complete: function(objeto, exito, error) {
-            $('#cod_usuario').focus();
-            $('#cod_usuario').select();
+            $('#id_producto').focus();
+            $('#id_producto').select();
             if (exito === "success") {
 
             }
@@ -118,10 +119,10 @@ function eliminarPublicacion() {
     })
 }
 
-function modificarPublicacion() {
-    $('#cod_publicacion').prop('disabled', false);//por no poder tomar el id de un campo deshabilitado
-    var formData = new FormData(document.getElementById("formPublicacion"));
-    $('#cod_publicacion').prop('disabled', true);
+function modificarProducto() {
+    $('#id_producto').prop('disabled', false);//por no poder tomar el id de un campo deshabilitado
+    var formData = new FormData(document.getElementById("formProducto"));
+    $('#id_producto').prop('disabled', true);
     $.ajax({
         type: 'POST',
         url: 'php/modificar.php',
@@ -141,8 +142,8 @@ function modificarPublicacion() {
             $("#mensajes").html("No se pudo eliminar el registro:" + e.status);
         },
         complete: function(objeto, exito, error) {
-            $('#cod_publicacion').focus();
-            $('#cod_publicacion').select();
+            $('#id_producto').focus();
+            $('#id_producto').select();
             if (exito === "success") {
 
             }
